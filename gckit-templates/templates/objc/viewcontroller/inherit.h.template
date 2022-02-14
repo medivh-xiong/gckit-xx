@@ -1,10 +1,10 @@
 //
-//  <%= fileName %>
+//  <%= fileName %>.h
 //  <%= project %>
 //
-//  Created by <%= organization %> on <%= createtime %>. All rights reserved.
-//
-
+//  Created by <%= organization %> on <%= createtime %>.
+//  Copyright © 2022 <%= organization %>. All rights reserved.
+//  控制器
 
 @import UIKit;
 

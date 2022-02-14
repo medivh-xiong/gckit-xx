@@ -2,8 +2,9 @@
 //  <%= fileName %>
 //  <%= project %>
 //
-//  Created by <%= organization %> on <%= createtime %>. All rights reserved.
-//
+//  Created by <%= organization %> on <%= createtime %>.
+//  Copyright © 2022 <%= organization %>. All rights reserved.
+//  控制器
 
 #import "<%= className %>.h"
 
@@ -13,26 +14,51 @@
 
 @implementation <%= className %>
 
-#pragma mark 系统方法
+#pragma mark - Life Cycle
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self configViews];
+    [self configData];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"toDetailVc"]) {
-        
-    }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
 }
+
+
+#pragma mark - Setup View / Data
+
+- (void)configViews
+{
+
+}
+
+- (void)configData
+{
+
+}
+
+
+#pragma mark - Observer
+
+#pragma mark - Notification
+
+#pragma mark - Event Response
+
+#pragma mark - Override Methods
+
+#pragma mark - Delegate
+
+#pragma mark - Public Methods
+
+#pragma mark - Private Methods
+
+#pragma mark - Network
+
+#pragma mark - Lazy
 
 @end

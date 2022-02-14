@@ -4,12 +4,15 @@
 //
 //  Created by <%= organization %> on <%= createtime %>.
 //  Copyright © 2022 <%= organization %>. All rights reserved.
-//  cell
+//  网络请求
 
-@import UIKit;
+#import <Foundation/Foundation.h>
 
-@interface <%= className %> : <%=superClassName%>
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)updateViewByDataModel:(<%= modelName %> *)model;
+@interface <%= className %> : NSObject
+
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -2,12 +2,18 @@
 //  <%= fileName %>
 //  <%= project %>
 //
-//  Created by <%= organization %> on <%= createtime %>. All rights reserved.
-//
-
+//  Created by <%= organization %> on <%= createtime %>.
+//  Copyright © 2022 <%= organization %>. All rights reserved.
+//  控制器
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface <%= className %> : UIViewController
 
+@property (nonatomic, strong) NSArray *dataArray;
+
 @end
+
+NS_ASSUME_NONNULL_END

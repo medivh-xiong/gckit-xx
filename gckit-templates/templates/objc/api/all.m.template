@@ -4,12 +4,9 @@
 //
 //  Created by <%= organization %> on <%= createtime %>.
 //  Copyright © 2022 <%= organization %>. All rights reserved.
-//  cell
+//  网络请求
 
-@import UIKit;
+@implementation <%= className %>
 
-@interface <%= className %> : <%=superClassName%>
-
-- (void)updateViewByDataModel:(<%= modelName %> *)model;
 
 @end
