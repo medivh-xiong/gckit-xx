@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface <%= className %> : NSObject
 
++ (void)loadMainData:(NSDictionary *)params success:(void(^)(NSArray <id *>*dataArray))success failure:(void(^)(NSString *errorMsg))failure;
 
 @end
 

@@ -8,5 +8,19 @@
 
 @implementation <%= className %>
 
++ (void)loadMainData:(NSDictionary *)params success:(void(^)(NSArray <id *>*dataArray))success failure:(void(^)(NSString *errorMsg))failure
+{
+	[JYHTTPClient GET:GetTagArticle parameters:params success:^(id responseObject) {
+    	if ([responseObject[@"code"] intValue] == jy_successCode) {
+            NSArray *array =  [NSArray yy_modelArrayWithClass:[id class] json:JY_EncodeArrayFromDic(responseObject, @"data")];
+            !success ?: success(array);
+        }else {
+            NSString *errorMsg = JY_EncodeStringFromDic(responseObject, @"message");
+        	!failure ?: failure(errorMsg);
+        }
+    } failure:^(NSError *error) {
+        !failure ?: failure(@"网络错误");
+    }];
+}
 
 @end
