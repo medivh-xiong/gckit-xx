@@ -7,8 +7,13 @@
 //  控制器
 
 #import "<%= className %>.h"
+
 #import "MJRefresh.h"
+
 #import "<%= cellName %>.h"
+
+#import "<%= apiName %>.h"
+
 
 @interface <%= className %> () <UITableViewDelegate, UITableViewDataSource>
 
@@ -136,6 +141,25 @@
     [self fetchDataList:YES];
 }
 
+- (void)handleRequestResponse:(BOOL)loadMore dataArray:(NSArray *)dataArray
+{
+    self.page += 1;
+    if (loadMore) {
+        NSMutableArray *tempArray = self.dataArray.mutableCopy;
+        [tempArray addObjectsFromArray:dataArray];
+        self.dataArray = tempArray.copy;
+    }else {
+        self.dataArray = dataArray.copy;
+        [self.tableView.mj_header endRefreshing];
+    }
+    if (dataArray.count < 10) { 
+        [self.tableView.mj_footer endRefreshingWithNoMoreData]; 
+    }else {
+        [self.tableView.mj_footer endRefreshing];
+    }  
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Network
 
@@ -150,43 +174,16 @@
         return;
     }
     
-    [JYHTTPClient GET:ProfessorPage parameters:@{@"pageNo":[NSString stringWithFormat:@"%ld",self.page],@"pageSize":@"10"} success:^(id responseObject) {
-        [JYNewCustomHud hideLoadingHud:self.view];
-        if ([responseObject[@"code"] intValue] == successCode) {
-            self.page += 1;
-            NSMutableArray<ExpertsModel *> *array = [ExpertsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"records"]];
-            if (!loadMore) {
-                self.dataArray = array.copy;
-            }else {
-                NSMutableArray *tempArray = self.dataArray.mutableCopy;
-                [tempArray addObjectsFromArray:array];
-                self.dataArray = tempArray.copy;
-            }
-            if (array.count < 10) { [self.tableView.mj_footer endRefreshingWithNoMoreData]; }
-        }else {
-            NSString *msg = JY_EncodeStringFromDic(responseObject, @"message");
-            if (!JY_IsStringEmpty(msg)) {
-                [self.view makeToast:msg];
-            }
-        }
-        self.firstLoading = FALSE;
+    [<%= apiName %> loadMainData:@{} success:^(NSArray<id *> *dataArray) {
+        [self handleRequestResponse:loadMore dataArray:dataArray];
+    } failure:^(NSString *errorMsg) {
+        if (!JY_IsStringEmpty(errorMsg)) {  [self.view makeToast:msg]; }
         if (loadMore) {
             [self.tableView.mj_footer endRefreshing];
         }else {
             [self.tableView.mj_header endRefreshing];
         }
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        [JYNewCustomHud hideLoadingHud:self.view];
-        self.firstLoading = FALSE;
-        if (loadMore) {
-            [self.tableView.mj_footer endRefreshing];
-        }else {
-            [self.tableView.mj_header endRefreshing];
-        }
-        if (JY_IsArrEmpty(self.dataArray)) {
-            [self.tableView reloadData];
-        }
+        //---- 下面可以用来展示空白页面
     }];
 }
 
