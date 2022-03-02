@@ -90,3 +90,8 @@ $ gckit g product
  s.dependency 'NetWorkCore', '~> 0.1.0'
  s.dependency 'EmptyDataView', '~> 0.1.0'
 ```
+
+
+这个工程node版本比较低，语法上有问题，用npm安装旧版本node
+
+v10.24.1
